@@ -1,12 +1,6 @@
 'use strict';
 
 angular.module('flightSearch.flightSearchHome', ['mightyDatepicker'])
-    .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/flightSearchHome', {
-            templateUrl: 'flightSearchPanel/flightSearchHome.html',
-            controller: 'FlightSearchCtrl'
-        });
-    }])
     .controller('FlightSearchCtrl', ['FlightSearchService', function(FlightSearchService) {
         var vm = this,
             init = function() {
