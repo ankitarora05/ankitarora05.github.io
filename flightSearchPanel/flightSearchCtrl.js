@@ -43,42 +43,46 @@ angular.module('flightSearch.flightSearchHome', ['mightyDatepicker'])
                     'departDate': vm.dateStDeptValue,
                     'returnDate': (vm.activeTab === 'roundTrip') ? vm.dateStReturnValue : null
                 };
-                console.log(params);
-                vm.searchExecuted = true;
-                if (vm.activeTab === 'roundTrip') {
-                    FlightSearchService.getRoundTripData(params, function(data, status) {
-                        if (data) {
-                            vm.searchedData = data.flightDetails;
-                            vm.flightsType = data.flightType;
-                            vm.priceSlider = {
-                                min: data.minPrice,
-                                max: data.maxPrice,
-                                ceil: data.maxPrice,
-                                floor: data.minPrice
-                            };
-                        }
-                    }, function(errorCode, error) {
-                        if (error) {
-                            console.log(errorCode);
-                        }
-                    });
+                if (vm.passengersCount && vm.fromCity && vm.toCity && (vm.dateStDeptValue || (vm.dateStReturnValue && vm.activeTab === 'roundTrip'))) {
+                    console.log(params);
+                    vm.searchExecuted = true;
+                    if (vm.activeTab === 'roundTrip') {
+                        FlightSearchService.getRoundTripData(params, function(data, status) {
+                            if (data) {
+                                vm.searchedData = data.flightDetails;
+                                vm.flightsType = data.flightType;
+                                vm.priceSlider = {
+                                    min: data.minPrice,
+                                    max: data.maxPrice,
+                                    ceil: data.maxPrice,
+                                    floor: data.minPrice
+                                };
+                            }
+                        }, function(errorCode, error) {
+                            if (error) {
+                                console.log(errorCode);
+                            }
+                        });
+                    } else {
+                        FlightSearchService.getOneWayData(params, function(data, status) {
+                            if (data) {
+                                vm.searchedData = data.flightDetails;
+                                vm.flightsType = data.flightType;
+                                vm.priceSlider = {
+                                    min: data.minPrice,
+                                    max: data.maxPrice,
+                                    ceil: data.maxPrice,
+                                    floor: data.minPrice
+                                };
+                            }
+                        }, function(errorCode, error) {
+                            if (error) {
+                                console.log(errorCode);
+                            }
+                        });
+                    }
                 } else {
-                    FlightSearchService.getOneWayData(params, function(data, status) {
-                        if (data) {
-                            vm.searchedData = data.flightDetails;
-                            vm.flightsType = data.flightType;
-                            vm.priceSlider = {
-                                min: data.minPrice,
-                                max: data.maxPrice,
-                                ceil: data.maxPrice,
-                                floor: data.minPrice
-                            };
-                        }
-                    }, function(errorCode, error) {
-                        if (error) {
-                            console.log(errorCode);
-                        }
-                    });
+                    alert('Please provide all the details');
                 }
 
             },
