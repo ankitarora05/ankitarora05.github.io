@@ -351,6 +351,7 @@
     .departureDatePicker {
         position: absolute;
         top: 65px;
+        width: 90%;
     }
     
     .mighty-picker-calendar__day-wrapper {
@@ -385,7 +386,7 @@
     }
     
     .mighty-picker__holder {
-        width: 107%;
+        width: 100%;
         position: relative;
         z-index: 100;
     }
